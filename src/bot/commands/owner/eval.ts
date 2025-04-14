@@ -12,6 +12,11 @@ const command: CommandInterface = {
         .setRequired(true)
     ),
   ownerOnly: true,
+  /**
+   * Evaluates a code provided by the user and sends the result back to the user.
+   * If the code throws an error, the error is sent instead.
+   * @param interaction - The interaction object.
+   */
   async execute(interaction) {
     const code = interaction.options.getString('code');
 
