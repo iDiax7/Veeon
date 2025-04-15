@@ -7,6 +7,7 @@ import {
   VoiceState,
 } from 'discord.js';
 import getUserAvatar from '../../../lib/userAvatar';
+import { getTranslation } from '../../../lib/getTranslation';
 
 /**
  * Handles the voiceStateUpdate event
@@ -24,6 +25,8 @@ export default async function voiceStateUpdated(
   if (!member) return;
   if (oldState === newState) return;
 
+  const { t } = await getTranslation(oldState);
+
   const embed = new EmbedBuilder()
     .setAuthor({
       name: member.user.username,
@@ -31,27 +34,27 @@ export default async function voiceStateUpdated(
     })
     .addFields(
       {
-        name: 'When?',
+        name: t('common.when'),
         value: time(new Date(), 'R'),
       },
       {
-        name: 'Member',
+        name: t('common.user'),
         value: userMention(member.id),
       }
     );
 
   if (!oldState.channelId && newState.channelId) {
-    embed.setTitle('Joined a voice channel');
+    embed.setTitle(t('events.voiceStateUpdated.joined.joined'));
     embed.addFields({
-      name: 'Channel',
+      name: t('common.channel'),
       value: channelMention(newState.channelId),
     });
   }
 
   if (oldState.channelId && !newState.channelId) {
-    embed.setTitle('Left a voice channel');
+    embed.setTitle(t('events.voiceStateUpdated.left.left'));
     embed.addFields({
-      name: 'Channel',
+      name: t('common.channel'),
       value: channelMention(oldState.channelId),
     });
   }
@@ -61,51 +64,51 @@ export default async function voiceStateUpdated(
     newState.channelId &&
     oldState.channelId !== newState.channelId
   ) {
-    embed.setTitle('Switched voice channels');
+    embed.setTitle(t('events.voiceStateUpdated.switched.switched'));
     embed.addFields(
       {
-        name: 'Old channel',
+        name: t('events.voiceStateUpdated.switched.oldChannel'),
         value: channelMention(oldState.channelId),
         inline: true,
       },
       {
-        name: 'New channel',
+        name: t('events.voiceStateUpdated.switched.newChannel'),
         value: channelMention(newState.channelId),
         inline: true,
       }
     );
   }
 
-  if (!oldState.selfMute && newState.selfMute) {
-    embed.setTitle('Self muted');
+  if (oldState.channelId && !oldState.selfMute && newState.selfMute) {
+    embed.setTitle(t('events.voiceStateUpdated.selfMuted'));
   }
 
   if (oldState.selfMute && !newState.selfMute) {
-    embed.setTitle('Self unmuted');
+    embed.setTitle(t('events.voiceStateUpdated.selfUnmuted'));
   }
 
-  if (!oldState.selfDeaf && newState.selfDeaf) {
-    embed.setTitle('Self deafened');
+  if (oldState.channelId && !oldState.selfDeaf && newState.selfDeaf) {
+    embed.setTitle(t('events.voiceStateUpdated.selfDeafened'));
   }
 
   if (oldState.selfDeaf && !newState.selfDeaf) {
-    embed.setTitle('Self undeafened');
+    embed.setTitle(t('events.voiceStateUpdated.selfUndeafened'));
   }
 
   if (!oldState.serverMute && newState.serverMute) {
-    embed.setTitle('Server muted');
+    embed.setTitle(t('events.voiceStateUpdated.serverMuted'));
   }
 
   if (oldState.serverMute && !newState.serverMute) {
-    embed.setTitle('Server unmuted');
+    embed.setTitle(t('events.voiceStateUpdated.serverUnmuted'));
   }
 
   if (!oldState.serverDeaf && newState.serverDeaf) {
-    embed.setTitle('Server deafened');
+    embed.setTitle(t('events.voiceStateUpdated.serverDeafened'));
   }
 
   if (oldState.serverDeaf && !newState.serverDeaf) {
-    embed.setTitle('Server undeafened');
+    embed.setTitle(t('events.voiceStateUpdated.serverUndeafened'));
   }
 
   await newState.guild.channels

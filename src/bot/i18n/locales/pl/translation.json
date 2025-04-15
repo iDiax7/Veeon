@@ -1,0 +1,61 @@
+{
+  "commands": {
+    "userInfo": {
+      "fullName": "Pełna nazwa",
+      "joinedAt": "Data dołączenia na serwer",
+      "openProfile": "Otwórz profil użytkownika",
+      "accountCreatedAt": "Data utworzenia konta"
+    },
+    "language": {
+      "languageChanged": "Jezyk został zmieniony na {{language}}"
+    }
+  },
+  "events": {
+    "commandUsed": {
+      "commandUsed": "Użyto polecenia",
+      "command": "Polecenie"
+    },
+    "messageDeleted": {
+      "messageDeleted": "Usunięto wiadomość"
+    },
+    "messageUpdated": {
+      "messageUpdated": "Zaktualizowano wiadomość",
+      "oldMessageContent": "Stara wiadomość",
+      "newMessageContent": "Nowa wiadomość"
+    },
+    "voiceStateUpdated": {
+      "joined": {
+        "joined": "Dołączono na kanał głosowy"
+      },
+      "left": {
+        "left": "Opuszczenie kanału głosowego"
+      },
+      "switched": {
+        "switched": "Zmiana kanału głosowego",
+        "oldChannel": "Stary kanał",
+        "newChannel": "Nowy kanał"
+      },
+      "selfMuted": "Wyciszenie (manualnie)",
+      "selfUnmuted": "Odciszenie (manualnie)",
+      "selfDeafened": "Wygłuszenie (manualnie)",
+      "selfUndeafened": "Odgłuszenie (manualnie)",
+      "serverMuted": "Wyciszenie (serwerowe)",
+      "serverUnmuted": "Odciszenie (serwerowe)",
+      "serverDeafened": "Wygłuszenie (serwerowe)",
+      "serverUndeafened": "Odgłuszenie (serwerowe)"
+    }
+  },
+  "common": {
+    "id": "ID",
+    "createdAt": "Data utworzenia",
+    "openInBrowser": "Otwórz w przeglądarce",
+    "openAvatar": "Otwórz avatar użytkownika",
+    "name": "Nazwa",
+    "channel": "Kanał",
+    "when": "Kiedy?",
+    "messageContent": "Treśc wiadomości",
+    "attachments": "Załączniki",
+    "messageAuthor": "Autor wiadomości",
+    "user": "Użytkownik"
+  }
+}

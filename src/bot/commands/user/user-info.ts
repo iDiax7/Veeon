@@ -10,6 +10,7 @@ import {
 import { CommandInterface } from '../../../types/Command';
 import getUserAvatar from '../../../lib/userAvatar';
 import timeFormatter from '../../../lib/timeFormatter';
+import { getTranslation } from '../../../lib/getTranslation';
 
 const command: CommandInterface = {
   data: new SlashCommandBuilder()
@@ -32,6 +33,8 @@ const command: CommandInterface = {
 
     const avatar = getUserAvatar(user);
 
+    const { t } = await getTranslation(interaction);
+
     const embed = new EmbedBuilder()
       .setAuthor({
         name: user.username,
@@ -39,19 +42,19 @@ const command: CommandInterface = {
       })
       .addFields(
         {
-          name: 'Full name',
+          name: t('commands.userInfo.fullName'),
           value: codeBlock(user.username),
         },
         {
-          name: 'ID',
+          name: t('common.id'),
           value: codeBlock(user.id),
         },
         {
-          name: 'Created at',
+          name: t('commands.userInfo.accountCreatedAt'),
           value: timeFormatter(user.createdAt),
         },
         {
-          name: 'Joined at',
+          name: t('commands.userInfo.joinedAt'),
           value: timeFormatter(member.joinedAt),
         }
       )
@@ -59,11 +62,11 @@ const command: CommandInterface = {
 
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
       new ButtonBuilder()
-        .setLabel('Open user in browser')
+        .setLabel(t('commands.userInfo.openProfile'))
         .setStyle(ButtonStyle.Link)
         .setURL(`https://discord.com/users/${user.id}`),
       new ButtonBuilder()
-        .setLabel('Show avatar in browser')
+        .setLabel(t('common.openAvatar'))
         .setStyle(ButtonStyle.Link)
         .setURL(avatar)
     );

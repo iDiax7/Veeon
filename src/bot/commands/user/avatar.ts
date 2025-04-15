@@ -2,6 +2,7 @@ import { ButtonStyle, SlashCommandBuilder, User } from 'discord.js';
 import { CommandInterface } from '../../../types/Command';
 import { ActionRowBuilder, ButtonBuilder } from '@discordjs/builders';
 import getUserAvatar from '../../../lib/userAvatar';
+import { getTranslation } from '../../../lib/getTranslation';
 
 const command: CommandInterface = {
   data: new SlashCommandBuilder()
@@ -26,9 +27,11 @@ const command: CommandInterface = {
 
     const avatar = getUserAvatar(user);
 
+    const { t } = await getTranslation(interaction);
+
     const row = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setLabel('Open in browser')
+        .setLabel(t('common.openAvatar'))
         .setStyle(ButtonStyle.Link)
         .setURL(avatar)
     );

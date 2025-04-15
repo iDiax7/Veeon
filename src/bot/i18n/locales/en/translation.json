@@ -1,0 +1,19 @@
+{
+  "commands": {
+    "userInfo": {
+      "fullName": "Full name",
+      "joinedAt": "Joined server at",
+      "openProfile": "Open user profile",
+      "accountCreatedAt": "Account created at"
+    },
+    "language": {
+      "languageChanged": "Language has been changed to {{language}}"
+    }
+  },
+  "common": {
+    "id": "ID",
+    "createdAt": "Created at",
+    "openInBrowser": "Open in browser",
+    "openAvatar": "Open user avatar"
+  }
+}

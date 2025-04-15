@@ -11,6 +11,7 @@ import {
 } from 'discord.js';
 import discordApiLimits from '../../discordApiLimits';
 import getUserAvatar from '../../../lib/userAvatar';
+import { getTranslation } from '../../../lib/getTranslation';
 
 /**
  * Handles the messageDelete event
@@ -24,31 +25,33 @@ import getUserAvatar from '../../../lib/userAvatar';
  * @returns {Promise<void>}
  */
 
-export default function messageDeleted(message: Message<true>) {
+export default async function messageDeleted(message: Message<true>) {
+  const { t } = await getTranslation(message);
+
   const embed = new EmbedBuilder()
     .setAuthor({
       name: message.author.username,
       iconURL: getUserAvatar(message.author),
     })
-    .setTitle('Message was deleted')
+    .setTitle(t('events.messageDeleted.messageDeleted'))
     .addFields(
       {
-        name: 'Channel',
+        name: t('common.channel'),
         value: channelMention(message.channelId),
         inline: true,
       },
       {
-        name: 'When?',
+        name: t('common.when'),
         value: time(new Date(), 'R'),
         inline: true,
       },
       {
-        name: 'Message author',
+        name: t('common.messageAuthor'),
         value: userMention(message.author.id),
         inline: true,
       },
       {
-        name: 'Content',
+        name: t('common.messageContent'),
         value: codeBlock(message.content || '-'),
       }
     )
@@ -57,7 +60,7 @@ export default function messageDeleted(message: Message<true>) {
 
   if (message.attachments.size > 0) {
     embed.addFields({
-      name: 'Attachments',
+      name: t('common.attachments'),
       value: message.attachments.map((attachment) => attachment.url).join('\n'),
     });
   }

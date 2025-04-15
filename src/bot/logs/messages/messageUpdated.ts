@@ -13,6 +13,7 @@ import {
 import discordApiLimits from '../../discordApiLimits';
 import { handleComponentInteraction } from '../../handlers/componentInteractionHandler';
 import getUserAvatar from '../../../lib/userAvatar';
+import { getTranslation } from '../../../lib/getTranslation';
 
 /**
  * Handles the messageUpdate event
@@ -23,38 +24,40 @@ import getUserAvatar from '../../../lib/userAvatar';
  * @returns {Promise<void>}
  */
 
-export default function messageUpdated(
+export default async function messageUpdated(
   oldMessage: Message<true>,
   newMessage: Message<true>
 ) {
+  const { t } = await getTranslation(oldMessage);
+
   const embed = new EmbedBuilder()
     .setAuthor({
       name: oldMessage.author.username,
       iconURL: getUserAvatar(oldMessage.author),
     })
-    .setTitle('Message was updated')
+    .setTitle(t('events.messageUpdated.messageUpdated'))
     .addFields(
       {
-        name: 'Channel',
+        name: t('common.channel'),
         value: channelMention(oldMessage.channelId),
         inline: true,
       },
       {
-        name: 'When?',
+        name: t('common.when'),
         value: time(new Date(), 'R'),
         inline: true,
       },
       {
-        name: 'Message author',
+        name: t('common.messageAuthor'),
         value: userMention(oldMessage.author.id),
         inline: true,
       },
       {
-        name: 'Old content',
+        name: t('events.messageUpdated.oldMessageContent'),
         value: codeBlock(oldMessage.content || '-'),
       },
       {
-        name: 'New content',
+        name: t('events.messageUpdated.newMessageContent'),
         value: codeBlock(newMessage.content || '-'),
       }
     )
@@ -63,7 +66,7 @@ export default function messageUpdated(
 
   if (oldMessage.attachments.size > 0) {
     embed.addFields({
-      name: 'Attachments',
+      name: t('common.attachments'),
       value: oldMessage.attachments
         .map((attachment) => attachment.url)
         .join('\n'),

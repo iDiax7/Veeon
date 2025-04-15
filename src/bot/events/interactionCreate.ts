@@ -9,6 +9,7 @@ import { ownerOnly } from '../security/ownerOnly';
 import { guildOwnerOnly } from '../security/guildOwnerOnly';
 import { handleComponentInteraction } from '../handlers/componentInteractionHandler';
 import commandUsed from '../logs/commands/commandUsed';
+import createGuildConfig from '../../lib/createGuildConfig';
 
 const event: EventInterface = {
   name: 'interactionCreate',

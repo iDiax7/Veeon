@@ -8,6 +8,7 @@ import { loadCommands, registerCommands } from './bot/handlers/commandHandler';
 import path from 'path';
 import { loadEvents } from './bot/handlers/eventHandler';
 import connectDatabase from './database/database';
+import initI18n from './bot/i18n/i18n';
 
 export const client = new BotClient({
   intents: [
@@ -43,6 +44,7 @@ const start = async () => {
     await client.login(process.env.CLIENT_TOKEN);
 
     await connectDatabase();
+    await initI18n();
 
     logInfo('Bot is running');
   } catch (error) {
