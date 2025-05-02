@@ -8,6 +8,29 @@
     },
     "language": {
       "languageChanged": "Jezyk został zmieniony na {{language}}"
+    },
+    "kick": {
+      "kickConfirmation": "Czy napewno chcesz wyrzucić użytkownika?",
+      "cannotKick": "Nie mogę wyrzucić <@{{userId}}>",
+      "kickCanceled": "-# Wyrzucenie zostało anulowane",
+      "kicked": "-# Użytkownik został wyrzucony",
+      "kickDate": "Data wyrzucenia",
+      "kickId": "ID wyrzucenia"
+    },
+    "overview": {
+      "overview": "Przegląd użytkownika",
+      "kicks": "Ilość wyrzuceń z serwera / ogólnie",
+      "overviewDescription": "-# Jeżeli poniżej nie wyświetla się użytkownik, sprawdź czy dobrze wpisałxś jego ID"
+    },
+    "hasher": {
+      "badCode": "Zaszyfrowany tekst który podałxś jest nieprawidłowy",
+      "secured": "Nie możesz odszyfrować tego tekstu"
+    },
+    "webhook": {
+      "webhookCreated": "Webhook został utworzony",
+      "webhookCreatedDescription": "-# Nie udostępniaj tokenu osobom trzecim, każdy kto go ma, może zarządzac webhookiem",
+      "webhookDeletedDescription": "Webhook został usunięty",
+      "webhookNotFound": "Nie znaleziono takiego webhooka"
     }
   },
   "events": {
@@ -28,10 +51,10 @@
         "joined": "Dołączono na kanał głosowy"
       },
       "left": {
-        "left": "Opuszczenie kanału głosowego"
+        "left": "Opuszczono kanał głosowegy"
       },
       "switched": {
-        "switched": "Zmiana kanału głosowego",
+        "switched": "Zmianieno kanał głosowey",
         "oldChannel": "Stary kanał",
         "newChannel": "Nowy kanał"
       },
@@ -56,6 +79,15 @@
     "messageContent": "Treśc wiadomości",
     "attachments": "Załączniki",
     "messageAuthor": "Autor wiadomości",
-    "user": "Użytkownik"
+    "user": "Użytkownik",
+    "yes": "Tak",
+    "no": "Nie",
+    "reason": "Powód",
+    "url": "URL",
+    "token": "Token",
+    "somethingWentWrong": "Cos poszło nie tak..."
+  },
+  "security": {
+    "missingPermissions": "Brakuje Ci wymaganych permisji {{permissions}}"
   }
 }

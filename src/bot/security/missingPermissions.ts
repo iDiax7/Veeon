@@ -1,5 +1,8 @@
-import { ChatInputCommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, inlineCode } from 'discord.js';
 import { CommandInterface } from '../../types/Command';
+import { getTranslation } from '../../lib/getTranslation';
+import createGuildConfig from '../../lib/createGuildConfig';
+import getGuildConfig from '../../lib/getGuildConfig';
 
 /**
  * Checks if the user has the required permissions to run a command.
@@ -8,17 +11,22 @@ import { CommandInterface } from '../../types/Command';
  * @param interaction - The interaction object containing user information.
  * @returns A string with an error message if the user is missing required permissions; otherwise, null.
  */
-export function checkPermissions(
+export async function checkPermissions(
   command: CommandInterface,
   interaction: ChatInputCommandInteraction
-): string | null {
+): Promise<string | null> {
   if (!command.userPermissions) return null;
 
   const missing = interaction.memberPermissions?.missing(
     command.userPermissions
   );
   if (missing && missing.length > 0) {
-    return `You are missing the following permissions: ${missing.join(', ')}`;
+    const config = await getGuildConfig(interaction.guild!);
+    const { t } = await getTranslation(interaction, config.language);
+
+    return t('security.missingPermissions', {
+      permissions: missing.map((p) => inlineCode(p)).join(' '),
+    });
   }
 
   return null;

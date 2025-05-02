@@ -46,8 +46,13 @@ const event: EventInterface = {
           ephemeral: true,
         });
 
-      const permissions = checkPermissions(command, interaction);
-      if (permissions) return interaction.reply(permissions);
+      const permissions = await checkPermissions(command, interaction);
+      if (permissions) {
+        return interaction.reply({
+          content: permissions,
+          ephemeral: true,
+        });
+      }
 
       const cooldown = checkCooldown(client, command, interaction);
       if (cooldown)
@@ -61,10 +66,11 @@ const event: EventInterface = {
 
         await commandUsed(interaction);
       } catch (error) {
-        await interaction.reply({
-          content: 'Something went wrong...',
-          ephemeral: true,
-        });
+        if(interaction.replied || interaction.deferred) {
+          await interaction.followUp({ content: 'Something went wrong', ephemeral: true });
+        } else {
+          await interaction.reply({ content: 'Something went wrong', ephemeral: true });
+        }
 
         logError(error);
       }
